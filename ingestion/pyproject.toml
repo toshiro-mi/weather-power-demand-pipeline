@@ -1,0 +1,44 @@
+[project]
+name = "ingestion"
+version = "0.1.0"
+description = "Fetch power demand CSV and Open-Meteo weather data, and load them into GCS / BigQuery"
+readme = "README.md"
+authors = [
+    { name = "Toshiro" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "google-cloud-storage>=3.16.0",
+    "requests>=2.34.2",
+]
+
+[project.scripts]
+ingestion = "ingestion:main"
+
+[build-system]
+requires = ["uv_build>=0.12.22,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pandas>=3.0.6",
+    "pytest>=9.1.1",
+    "ruff>=0.16.10",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = [
+    "E", "W",  # pycodestyle
+    "F",       # pyflakes
+    "I",       # isort
+    "B",       # flake8-bugbear
+    "UP",      # pyupgrade
+    "SIM",     # flake8-simplify
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
